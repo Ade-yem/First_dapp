@@ -1,8 +1,4 @@
-import {
-  type ExternalProvider,
-  type JsonRpcFetchFunc,
-  Web3Provider,
-} from "@ethersproject/providers";
+import {  Web3Provider } from "@ethersproject/providers";
 import { UnsupportedChainIdError, useWeb3React } from "@web3-react/core";
 import {
   NoEthereumProviderError,
@@ -10,11 +6,10 @@ import {
 } from "@web3-react/injected-connector";
 import { UserRejectedRequestError as UserRejectedRequestErrorWalletConnect } from "@web3-react/walletconnect-connector";
 import { useEffect, useState } from "react";
-
-import { POLLING_INTERVAL, injected, walletconnect } from "../dapp/connectors";
+import { injected, walletconnect } from "../dapp/connectors";
 import { useEagerConnect, useInactiveListener } from "../dapp/hooks";
 import logger from "../logger";
-import { Header } from "./Header";
+
 
 function getErrorMessage(error?: Error) {
   if (error instanceof NoEthereumProviderError) {
@@ -36,15 +31,8 @@ function getErrorMessage(error?: Error) {
   return "An unknown error occurred. Check the console for more details.";
 }
 
-export function getLibrary(
-  provider: ExternalProvider | JsonRpcFetchFunc,
-): Web3Provider {
-  const library = new Web3Provider(provider);
-  library.pollingInterval = POLLING_INTERVAL;
-  return library;
-}
 
-export function Demo() {
+export function Login() {
   const context = useWeb3React<Web3Provider>();
   const { connector, library, account, activate, deactivate, active, error } =
     context;
@@ -75,7 +63,6 @@ export function Demo() {
     Boolean(error);
   return (
     <>
-      <Header />
       <div>
         {Boolean(error) && (
           <h4 style={{ marginTop: "1rem", marginBottom: "0" }}>
@@ -87,24 +74,13 @@ export function Demo() {
         <div className="card bordered">
           <figure>
             <img
-              className="h-24"
+              className="h-12"
               src="https://images.ctfassets.net/9sy2a0egs6zh/4zJfzJbG3kTDSk5Wo4RJI1/1b363263141cf629b28155e2625b56c9/mm-logo.svg"
               alt="metamask"
             />
           </figure>
           <div className="card-body">
-            <h2 className="card-title">
-              <a
-                className="link link-hover"
-                href="https://metamask.io/"
-                target="_blank"
-                rel="noreferrer"
-              >
-                MetaMask
-              </a>
-            </h2>
-            <p>A crypto wallet & gateway to blockchain apps</p>
-            <div className="justify-end card-actions">
+            <div className="justify-center card-actions">
               <button
                 type="button"
                 className="btn btn-primary"
@@ -171,24 +147,13 @@ export function Demo() {
         <div className="card bordered">
           <figure>
             <img
-              className="h-24"
+              className="h-12"
               src="https://docs.walletconnect.com/img/walletconnect-logo.svg"
               alt="wallet connect"
             />
           </figure>
           <div className="card-body">
-            <h2 className="card-title">
-              <a
-                className="link link-hover"
-                href="https://walletconnect.org/"
-                target="_blank"
-                rel="noreferrer"
-              >
-                Wallet Connect
-              </a>
-            </h2>
-            <p>Open protocol for connecting Wallets to Dapps</p>
-            <div className="justify-end card-actions">
+            <div className="justify-center card-actions">
               <button
                 type="button"
                 className="btn btn-primary"
@@ -257,4 +222,4 @@ export function Demo() {
   );
 }
 
-export default Demo;
+export default Login;
