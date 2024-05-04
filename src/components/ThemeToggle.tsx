@@ -21,7 +21,7 @@ export default function ThemeToggle() {
   };
 
   return (
-    <div className="fixed top-0 right-0 z-10 mt-2 mr-4">
+    <div className="fixed top-0 right-0 z-10 m-2">
       <button type="button" className="btn" onClick={toggleTheme}>
         {theme === "dark" ? "🌞" : "🌙"}
       </button>

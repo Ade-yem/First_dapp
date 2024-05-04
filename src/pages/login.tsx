@@ -9,6 +9,7 @@ import { useEffect, useState } from "react";
 import { injected, walletconnect } from "../dapp/connectors";
 import { useEagerConnect, useInactiveListener } from "../dapp/hooks";
 import logger from "../logger";
+import useLocalStorage from "../hooks/useLocalStorage";
 
 
 function getErrorMessage(error?: Error) {
@@ -44,6 +45,7 @@ export function Login() {
       setActivatingConnector(undefined);
     }
   }, [activatingConnector, connector]);
+  const [deactivated, setDeactivated] = useLocalStorage<true | false>("deactivated", false);
 
   // Handle logic to eagerly connect to the injected ethereum provider, if it exists and has granted access already
   const triedEager = useEagerConnect();
@@ -135,6 +137,7 @@ export function Login() {
                       }
 
                       deactivate();
+                      setDeactivated(true);
                     }}
                   >
                     Deactivate
@@ -208,6 +211,7 @@ export function Login() {
                       }
 
                       deactivate();
+                      setDeactivated(true);
                     }}
                   >
                     Deactivate

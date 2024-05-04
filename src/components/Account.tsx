@@ -2,14 +2,17 @@ import { useWeb3React } from "@web3-react/core";
 import { Web3Provider } from "@ethersproject/providers";
 import Link from "next/link"
 import { useRouter } from "next/router";
+import useLocalStorage from "../hooks/useLocalStorage";
 
 
 export function Account() {
   const { account, active } = useWeb3React();
   const context = useWeb3React<Web3Provider>();
   const router = useRouter();
+  const [deactivated, setDeactivated] = useLocalStorage<true | false>("theme", false);
   const Disconnect = async () => {
     await context.deactivate();
+    setDeactivated(true)
     router.push("/login");
   }
 

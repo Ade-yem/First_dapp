@@ -1,6 +1,7 @@
 // components/RegistrationForm.js
 
 import React, { useState } from 'react';
+import Login from './login';
 
 const RegistrationForm = () => {
   const [activeTab, setActiveTab] = useState('patient'); // Default active tab is 'patient'
@@ -18,9 +19,10 @@ const RegistrationForm = () => {
 
   return (
     <div className='container mx-auto min-h-screen max-w-[500px]'>
+      <Login/>
       <form onSubmit={handleSubmit}>
         <div role="tablist" className="tabs">
-          <input onClick={() => handleTabChange('patient')} type="radio" name="patient" role="tab" className="tab pl-10 pr-10" aria-label="Patient" checked />
+          <input onClick={() => handleTabChange('patient')} type="radio" name="patient" role="tab" className="tab pl-10 pr-10" aria-label="Patient" defaultChecked />
           <div role="tabpanel" className="tab-content p-10">
           {activeTab === 'patient' && (
           <div className='flex flex-col justify-center space-y-4 tab-content'>

@@ -12,7 +12,7 @@ const ThemeToggle = dynamic(async () => import("./ThemeToggle"), {
 export function Header() {
   return (
     <>
-      <div className="fixed w-full z-50 top-0 shadow-lg navbar bg-neutral text-neutral-content rounded-box">
+      <div className="fixed rounded-t-md w-full z-50 top-0 shadow-lg navbar bg-neutral text-neutral-content">
         <Script
           async
           src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-5337133458846513"
@@ -27,7 +27,9 @@ export function Header() {
 
         <div className="flex-1 px-2 mx-2">
           <span className="text-lg font-bold">
-            <Link href={"/"}>HealthChain</Link>
+            <Link href={"/"}>
+              <img src="/logo.jpeg" height={'50px'} width={"50px"} className="p" alt="logo"/>
+            </Link>
           </span>
         </div>
         <div className="flex navbar-start flex-none px-2 mx-2">
@@ -39,7 +41,7 @@ export function Header() {
         </div>
         <ThemeToggle />
       </div>
-      <div className="h-20"></div>
+      <div className="h-[65px]"></div>
     </>
   );
 }

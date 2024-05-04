@@ -83,7 +83,7 @@ const PatientDashboard = () => {
   };
   
   return (
-    <div className='container mx-auto min-h-screen'>
+    <div className='min-h-screen'>
       <div className='card card-normal bg-base-100 shadow-xl mb-2'>
       <h1 className='text-center m-2 p-2 text-xl font-bold'>Welcome, {patientName}!</h1>
       </div>
