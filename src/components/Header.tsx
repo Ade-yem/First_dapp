@@ -28,13 +28,13 @@ export function Header() {
         <div className="flex-1 px-2 mx-2">
           <span className="text-lg font-bold">
             <Link href={"/"}>
-              <img src="/logo.jpeg" height={'50px'} width={"50px"} className="p" alt="logo"/>
+              <img src="/logo.webp" height={'50px'} width={"50px"} className="p" alt="logo"/>
             </Link>
           </span>
         </div>
         <div className="flex navbar-start flex-none px-2 mx-2">
           <div className="flex items-stretch">
-            <ChainId />
+            {/* <ChainId /> */}
             <Account />
             {/* <Balance /> */}
           </div>

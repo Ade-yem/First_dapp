@@ -11,7 +11,7 @@ function MyApp({ Component, pageProps }: AppProps) {
   return (
   <Web3ReactProvider getLibrary={getLibrary}>
     <Head>
-      <link rel="icon" href="/logo.jpeg"></link>
+      <link rel="icon" href="/logo.webp"></link>
     </Head>
     <Layout>
       <Component {...pageProps} />  

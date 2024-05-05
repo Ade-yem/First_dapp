@@ -60,7 +60,7 @@ const PatientDashboard = () => {
     // Add more logs as needed
   ];
  
-  const grantAccess = (hospitalName) => {
+  const grantAccess = (hospitalName: string) => {
     setHospitals(prevHospitals => {
       return prevHospitals.map(hospital => {
         if (hospital.name === hospitalName) {
@@ -71,7 +71,7 @@ const PatientDashboard = () => {
     });
   };
 
-  const revokeAccess = (hospitalName) => {
+  const revokeAccess = (hospitalName: string) => {
     setHospitals(prevHospitals => {
       return prevHospitals.map(hospital => {
         if (hospital.name === hospitalName) {
@@ -85,9 +85,9 @@ const PatientDashboard = () => {
   return (
     <div className='min-h-screen'>
       <div className='card card-normal bg-base-100 shadow-xl mb-2'>
-      <h1 className='text-center m-2 p-2 text-xl font-bold'>Welcome, {patientName}!</h1>
+      <h1 className='text-center m-2 p-8 text-2xl font-bold'>Welcome, {patientName}!</h1>
       </div>
-      <div className='flex gap-2'>
+      <div className='flex gap-2 md:flex-row flex-col'>
         <div className="overflow-x-auto card card-normal bg-base-100 shadow-xl">
           <h2 className='card-title px-4 pt-3'>Your Healthcare providers</h2>
           <table className="table card-body px-3">

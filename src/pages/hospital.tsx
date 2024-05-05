@@ -82,8 +82,8 @@ const patient_s: Patient[] = [
 ];
 
 
-export default function Doctor() {
-  const [name, setName] = useState("Doctor Adeyemi");
+export default function HealthcareProvider() {
+  const [name, setName] = useState("St. Mary's Hospital");
   const [patients, setPatients] = useState<Patient[]>(patient_s)
   const [selectedPatient, setSelectedPatient] = useState<Patient | null>(null)
   function requestAccess(name: string): void {

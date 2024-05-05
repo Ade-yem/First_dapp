@@ -3,7 +3,7 @@ function App() {
     <>
 
       <div className="container">
-        <div className="hero min-h-screen" style={{backgroundImage: 'url(/bg.jpeg)'}}>
+        <div className="hero min-h-screen" style={{backgroundImage: 'url(/bg.webp)'}}>
           <div className="hero-overlay bg-opacity-60"></div>
           <div className="hero-content text-center text-neutral-content">
             <div className="max-w-md">

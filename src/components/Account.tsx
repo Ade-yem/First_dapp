@@ -19,9 +19,9 @@ export function Account() {
   return (
     <div className="dropdown">
       <div className="btn btn-ghost btn-sm rounded-btn" tabIndex={0} role="button" >
-        <span>Account</span>
+        <span>&or; Account</span>
         <span role="img" aria-label="robot">
-          🤖
+          
         </span>
         <span>
           {account === null
@@ -37,8 +37,8 @@ export function Account() {
       <div tabIndex={0} className="dropdown-content cursor-pointer z-[1] menu p-2 shadow bg-base-100 rounded-box w-52">
       {active ? (
         <ul>
-      <li className="hover:bg-black/50 p-2 text-black"><Link href={"/profile"}>Profile</Link></li>
-      <li className="hover:bg-black/50 p-2 text-black" onClick={Disconnect}>Logout</li>
+      <li className="hover:bg-black/50 text-black"><Link href={"/profile"}>Profile</Link></li>
+      <li className="hover:bg-black/50 text-black" onClick={Disconnect}><Link href={"/"}>Logout</Link></li>
       </ul>) : 
       <Link href={"/login"}><span className="p-2 hover:bg-black/50 text-black">Login with wallet</span></Link>
       }
