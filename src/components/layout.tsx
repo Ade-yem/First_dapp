@@ -22,7 +22,7 @@ export default function Layout({ children }) {
   return (
     <div>
       <Header />
-      <main className="flex-1 mb-1 mx-auto">
+      <main className="mt-3">
         {children}
       </main>
       <Footer />

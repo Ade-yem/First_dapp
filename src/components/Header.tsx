@@ -1,7 +1,5 @@
 import Script from "next/script";
 import { Account } from "./Account";
-import { Balance } from "./Balance";
-import { ChainId } from "./ChainId";
 import Link from "next/link";
 import dynamic from "next/dynamic";
 
@@ -11,7 +9,7 @@ const ThemeToggle = dynamic(async () => import("./ThemeToggle"), {
 
 export function Header() {
   return (
-    <>
+    <div>
       <div className="fixed rounded-t-md w-full z-50 top-0 shadow-lg navbar bg-neutral text-neutral-content">
         <Script
           async
@@ -26,23 +24,20 @@ export function Header() {
         />
 
         <div className="flex-1 px-2 mx-2">
-          <span className="text-lg font-bold">
-            <Link href={"/"}>
-              <img src="/logo.webp" height={'50px'} width={"50px"} className="p" alt="logo"/>
-            </Link>
-          </span>
+          <Link href={"/"} className="flex gap-1 justify-center items-center">
+            <img src="/logo.webp" height={'50px'} width={"50px"} className="p" alt="logo"/>
+            <span className="text-lg font-bold">HealthChain</span>
+          </Link>
         </div>
         <div className="flex navbar-start flex-none px-2 mx-2">
           <div className="flex items-stretch">
-            {/* <ChainId /> */}
             <Account />
-            {/* <Balance /> */}
           </div>
         </div>
         <ThemeToggle />
       </div>
       <div className="h-[65px]"></div>
-    </>
+    </div>
   );
 }
 

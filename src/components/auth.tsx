@@ -68,7 +68,7 @@ export function Auth() {
     connected(walletconnect) ||
     Boolean(error);
   return (
-    <div className="mt-1" >
+    <div className="" >
       <div>
         {Boolean(error) && (
           <h4 style={{ marginTop: "1rem", marginBottom: "0" }}>

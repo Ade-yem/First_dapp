@@ -37,10 +37,10 @@ export function Account() {
       <div tabIndex={0} className="dropdown-content cursor-pointer z-[1] menu p-2 shadow bg-base-100 rounded-box w-52">
       {active ? (
         <ul>
-      <li className="hover:bg-black/50 text-black"><Link href={"/profile"}>Profile</Link></li>
-      <li className="hover:bg-black/50 text-black" onClick={Disconnect}><Link href={"/"}>Logout</Link></li>
+      <li className=""><Link href={"/profile"}>Profile</Link></li>
+      <li className="" onClick={Disconnect}><Link href={"/"}>Logout</Link></li>
       </ul>) : 
-      <Link href={"/login"}><span className="p-2 hover:bg-black/50 text-black">Login with wallet</span></Link>
+      <Link href={"/login"}><span className="p-2">Login with wallet</span></Link>
       }
       
     </div>
