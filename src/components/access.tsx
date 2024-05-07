@@ -3,9 +3,6 @@ import { useWeb3React } from "@web3-react/core";
 import { useState } from "react";
 import { Doctor, Hospital, Patient } from "../types/healthchain_types";
 
-// Types
-
-
 // Sample data
 export const sampleDoctor: Doctor = {
   id: "1",

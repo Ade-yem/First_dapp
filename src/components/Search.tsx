@@ -1,5 +1,6 @@
 import React, { useState } from "react"
-import { Doctor, Hospital, Patient, sampleDoctor } from "./access";
+import { Doctor, Hospital, Patient } from "../types/healthchain_types";
+import { sampleDoctor } from "./access";
 
 type SearchProps = {
   title: string;
