@@ -1,6 +1,7 @@
 import { useCallback, useState } from "react";
 import { Search } from "../components/Search";
-import { Doctor, DoctorCard, Hospital } from "../components/access";
+import { Doctor, Hospital } from "../types/healthchain_types";
+
 
 
 const doctor_s: Doctor[] = [

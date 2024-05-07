@@ -1,34 +1,10 @@
 import { Web3Provider } from "@ethersproject/providers";
 import { useWeb3React } from "@web3-react/core";
 import { useState } from "react";
+import { Doctor, Hospital, Patient } from "../types/healthchain_types";
 
 // Types
-export type Doctor = {
-  id: string;
-  name: string;
-  walletAddress: string;
-  image: string;
-  specialization: string;
-  hospitalAffiliation: string;
-  whitelisted: boolean;
-};
 
-export type Hospital = {
-  id: string;
-  name: string;
-  image: string;
-  walletAddress: string;
-  whitelisted: boolean;
-  whitelist: string[];
-};
-
-export type Patient = {
-  id: string;
-  name: string;
-  walletAddress: string;
-  image: string;
-  whitelist: string[];
-};
 
 // Sample data
 export const sampleDoctor: Doctor = {

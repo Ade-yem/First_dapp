@@ -22,7 +22,7 @@ export default function Layout({ children }) {
   return (
     <div>
       <Header />
-      <main className="mt-3">
+      <main className="mt-3 min-h-screen">
         {children}
       </main>
       <Footer />
