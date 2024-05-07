@@ -2,7 +2,8 @@ import { useCallback, useState } from "react";
 import { Search } from "../components/Search";
 import { useWeb3React } from "@web3-react/core";
 import { Web3Provider } from "@ethersproject/providers";
-import { Hospital, HospitalCard } from "../components/access";
+import { HospitalCard } from "../components/access";
+import { Hospital } from "../types/health_chain";
 
 export default function Admin() {
   const context = useWeb3React<Web3Provider>();
