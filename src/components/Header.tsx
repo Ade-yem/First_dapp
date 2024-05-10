@@ -23,18 +23,17 @@ export function Header() {
           data-website-id="2b85d47b-5bd9-407e-b64d-61f1181a0860"
         />
 
-        <div className="flex-1 px-2 mx-2">
+        <div className="flex-1 px-2 mx-2 navbar-start">
           <Link href={"/"} className="flex gap-1 justify-center items-center">
             <img src="/logo.webp" height={'50px'} width={"50px"} className="p" alt="logo"/>
             <span className="text-lg font-bold">HealthChain</span>
           </Link>
         </div>
-        <div className="flex navbar-start flex-none px-2 mx-2">
-          <div className="flex items-stretch">
-            <Account />
-          </div>
+        <div className="flex navbar-end flex-none px-2 mx-2">
+          <Account />
+          <ThemeToggle />
         </div>
-        <ThemeToggle />
+        
       </div>
       <div className="h-[65px]"></div>
     </div>
