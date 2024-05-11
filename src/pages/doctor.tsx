@@ -106,7 +106,7 @@ export default function Doctor() {
         <div className="card w-96 bg-base-100 shadow-xl">
           <h2 className="text-center m-2 font-semibold">Update patient record</h2>
           <div className="card-body">
-            <MedicalRecordForm/>
+            <MedicalRecordForm who="doctor"/>
           </div>
         </div>
         </div>

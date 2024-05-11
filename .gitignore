@@ -14,5 +14,5 @@ artifacts
 coverage
 .eslintcache
 .openzeppelin/*.json
-
+trash.txt
 .next

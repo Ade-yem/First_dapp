@@ -1,6 +1,7 @@
 import { useCallback, useState } from "react";
 import { Search } from "../components/Search";
 import { Doctor } from "../types/healthchain_types";
+import MedicalRecordForm from "../components/medicalRecord";
 
 
 
@@ -8,7 +9,6 @@ const doctor_s: Doctor[] = [
   {
     id: "1",
     name: "John Doe",
-    image: "https://img.daisyui.com/images/stock/photo-1606107557195-0e29a4b5b4aa.jpg",
     walletAddress: "0x9b6f4e5b6eC7fD9c09dC388A1eF0575855C18d49",
     whitelisted: true,
     hospitalAffiliation: "St Mary hospital",
@@ -17,7 +17,6 @@ const doctor_s: Doctor[] = [
   {
     id: "2",
     name: "Jane Smith",
-    image: "https://img.daisyui.com/images/stock/photo-1606107557195-0e29a4b5b4aa.jpg",
     walletAddress: "0xEe921e8f593c0123456789ABCDEF1234567890ab",
     whitelisted: true,
     hospitalAffiliation: "St Mary hospital",
@@ -26,7 +25,6 @@ const doctor_s: Doctor[] = [
   {
     id: "3",
     name: "Alice Johnson",
-    image: "https://img.daisyui.com/images/stock/photo-1606107557195-0e29a4b5b4aa.jpg",
     walletAddress: "0x3a7B6aF584392dFcD5678901234567890ABcdeF1",
     whitelisted: true,
     hospitalAffiliation: "St Mary hospital",
@@ -35,7 +33,6 @@ const doctor_s: Doctor[] = [
   {
     id: "4",
     name: "Bob Brown",
-    image: "https://img.daisyui.com/images/stock/photo-1606107557195-0e29a4b5b4aa.jpg",
     walletAddress: "0xFf8DdFa94ABc34fEcA5678901234567890abcDE2",
     whitelisted: true,
     hospitalAffiliation: "St Mary hospital",
@@ -44,7 +41,6 @@ const doctor_s: Doctor[] = [
   {
     id: "5",
     name: "Emily Davis",
-    image: "https://img.daisyui.com/images/stock/photo-1606107557195-0e29a4b5b4aa.jpg",
     walletAddress: "0x1AaBCD1234eF5678901234567890AbcdeF987654",
     whitelisted: true,
     hospitalAffiliation: "St Mary hospital",
@@ -64,6 +60,9 @@ export default function HealthcareProvider() {
     setData(state)
     setselectedDoctor(null)
   }, [])
+  const revokeAccess = () => {
+
+  }
 
   return (
     <div className="flex container flex-col items-center justify-center min-h-screen min-w-full">
@@ -74,7 +73,7 @@ export default function HealthcareProvider() {
         <Search title="doctor" handleData={handleData}/>
       </div>
       <div className='flex sm:flex-row flex-col gap-2 w-full mx-auto'>
-      <div className="overflow-x-auto card card-normal bg-base-100 shadow-xl">
+      <div className="overflow-x-auto card card-normal md:flex-grow bg-base-100 shadow-xl">
         <h2 className='card-title px-4 pt-3'>Doctors</h2>
         <table className="table card-body px-3">
           {/* head */}
@@ -92,10 +91,10 @@ export default function HealthcareProvider() {
             <tr key={doctor.id}>
               <td>
                 <div className="flex items-center gap-3">
-                  <div className="avatar">
-                    <div className="mask mask-squircle w-12 h-12">
-                      <img src={doctor.image} alt="Avatar Tailwind CSS Component" />
-                    </div>
+                  <div className="avatar placeholder">
+                      <div className="shadow-md text-neutral-content rounded-md w-10">
+                        <span className="text-3xl">{doctor.name.charAt(0).toUpperCase()}</span>
+                      </div>
                   </div>
                   <div className="font-bold">{doctor.name}</div>
                 </div>
@@ -115,18 +114,19 @@ export default function HealthcareProvider() {
       </div>
       <div className="flex md:flex-col sm:flex-row flex-col gap-3">  
           {selectedDoctor ?
-          <div className="card min-h-12 w-96 bg-base-100 shadow-xl">
-            <figure className="">
-                <img src={selectedDoctor.image}></img>
-              </figure>
+          <div className="card items-center min-h-12 w-96 bg-base-100 shadow-xl">
+            <div className="avatar placeholder mt-2">
+              <div className="shadow-lg text-neutral-content rounded-lg w-24">
+                <span className="text-3xl">{selectedDoctor.name.charAt(0).toUpperCase()}</span>
+              </div>
+            </div>
             <div className="card-body">
               <p className="font-semibold text-lg text-center">{selectedDoctor.name}</p>
-              <p>Address: {selectedDoctor.walletAddress}</p>
+              <p className="text-sm">Address: {selectedDoctor.walletAddress}</p>
 
             </div>
             <div className="card-actions justify-center mb-4">
-              <button className="btn btn-info">View record</button>
-              <button className="btn btn-success">Update record</button>
+              <button className="btn btn-secondary" onClick={revokeAccess}>Revoke access</button>
             </div>
           </div>
           :
@@ -136,7 +136,7 @@ export default function HealthcareProvider() {
           :
           <div className="card w-96 bg-base-100 shadow-xl image-full">
             <figure><img src="/vect1.webp" alt="Shoes" /></figure>
-            <div className="card-body justify-center items-center">
+            <div className="card-body h-full w-full justify-center items-center">
               <p>No doctor</p>
             </div>
           </div>
@@ -144,12 +144,7 @@ export default function HealthcareProvider() {
         <div className="card w-96 bg-base-100 shadow-xl">
           <h2 className="text-center m-2 font-semibold">Create patient record</h2>
           <div className="card-body">
-            <form action="" className="flex flex-col space-y-3">    
-              <input type="text" placeholder="Name of patient" className="input input-bordered input-primary w-full max-w-xs" />
-              <input type="text" placeholder="Patient address" className="input input-bordered input-primary w-full max-w-xs" />
-              <input type="text" placeholder="Link to file" className="input input-bordered input-primary w-full max-w-xs" />
-              <button type="submit" className="btn btn-success">Create record</button>
-            </form>
+            <MedicalRecordForm who="hospital"/>
           </div>
         </div>
       </div>

@@ -43,7 +43,11 @@ export const Search: React.FC<SearchProps> = ({ title, handleData }) => {
           !hidden && !loading && result ?
           <div onClick={getData} className="flex items-center gap-3 p-2 bg-gray-300 w-full max-w-[500px] cursor-pointer border-success">
             <div className="mask mask-squircle w-12 h-12">
-              <img src={result.image} alt="image" />
+            <div className="avatar placeholder">
+              <div className="bg-neutral text-neutral-content rounded-full w-24">
+                <span className="text-3xl">{result.name.charAt(0).toUpperCase()}</span>
+              </div>
+            </div>
             </div>
             <div className="">
             <div className="font-bold">{result.name}</div>

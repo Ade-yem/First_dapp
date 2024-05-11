@@ -1,10 +1,10 @@
 import React, { useState } from "react";
 import { MedicalRecord } from "../types/healthchain_types";
+import { createRecord, updateRecord } from "../dapp/api";
 
-
-const MedicalRecordForm: React.FC = () => {
+type Props = { who: "doctor" | "hospital" }
+const MedicalRecordForm: React.FC<Props> = ({who}) => {
   const [formData, setFormData] = useState<Partial<MedicalRecord>>({
-    id: 0,
     patientName: "",
     diagnosis: "",
     medications: [],
@@ -43,10 +43,22 @@ const MedicalRecordForm: React.FC = () => {
     }));
   };
 
-  const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
+  const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     // Handle form submission
-    console.log("Form data:", formData);
+    if (formData.walletAddress || formData.diagnosis) {
+      try {
+        if (who === "doctor" && formData.walletAddress) {
+          const response = await updateRecord(formData.walletAddress, formData)
+          console.log(response)
+        } else if (who === "hospital" && formData.walletAddress)  {
+          const response = await createRecord(formData.walletAddress, formData)
+          console.log(response)
+        }
+      } catch (e: any) {
+        console.error(e)
+      }
+    }  
   };
 
   return (
@@ -61,6 +73,7 @@ const MedicalRecordForm: React.FC = () => {
       />
       <input
         type="text"
+        required
         name="walletAddress"
         placeholder="Wallet address of patient"
         className="input input-bordered input-primary w-full max-w-xs"
@@ -115,7 +128,7 @@ const MedicalRecordForm: React.FC = () => {
         Add Medication
       </button>
       <button type="submit" className="btn btn-success">
-        Update Record
+        {who === "doctor" ? "Update Record": "Create Record"}
       </button>
     </form>
   );
