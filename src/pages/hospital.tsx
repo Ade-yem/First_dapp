@@ -2,7 +2,10 @@ import { useCallback, useState } from "react";
 import { Search } from "../components/Search";
 import { Doctor } from "../types/healthchain_types";
 import MedicalRecordForm from "../components/medicalRecord";
-
+import { DoctorCard } from "../components/access";
+import toast from "react-hot-toast";
+import useContract from "../dapp/contract";
+import { Contract } from "ethers";
 
 
 const doctor_s: Doctor[] = [
@@ -54,14 +57,22 @@ export default function HealthcareProvider() {
   const [doctor, setDoctor] = useState<Doctor[]>(doctor_s)
   const [selectedDoctor, setselectedDoctor] = useState<Doctor | null>(null)
   const [data, setData] = useState<Doctor | null>(null)
+  const contract = useContract() as Contract
 
-
-  const handleData = useCallback((state: Doctor | null) => {
+  const handleData = useCallback((state: any) => {
     setData(state)
     setselectedDoctor(null)
   }, [])
-  const revokeAccess = () => {
-
+  const revokeAccess = async () => {
+    try {
+      toast.loading("Revoking doctor access", {id: "doctor"})
+      const res = await contract.revokeDoctorAccess(selectedDoctor?.walletAddress)
+      console.log(res)
+    toast.success("Revoked doctor access", {id: "doctor"})
+    } catch (error) {
+      toast.success(error.reason, {id: "doctor"})
+      console.error("Error: " + error.reason)
+    }
   }
 
   return (
@@ -105,7 +116,7 @@ export default function HealthcareProvider() {
               <td><span className={`badge badge-ghost badge-md ${doctor.whitelisted ? "bg-success" : "bg-secondary"}`}>{doctor.whitelisted}</span></td>
               <th>
                 <button className="btn btn-ghost btn-xs" onClick={() => {setData(null); setselectedDoctor(doctor)}}>
-                <svg width="16px" height="16px" viewBox="-2.4 -2.4 28.80 28.80" fill="none" xmlns="http://www.w3.org/2000/svg" stroke="#05e654"><g id="SVGRepo_bgCarrier" stroke-width="0"></g><g id="SVGRepo_tracerCarrier" stroke-linecap="round" stroke-linejoin="round" stroke="#CCCCCC" stroke-width="0.048"></g><g id="SVGRepo_iconCarrier"> <path d="M15.0007 12C15.0007 13.6569 13.6576 15 12.0007 15C10.3439 15 9.00073 13.6569 9.00073 12C9.00073 10.3431 10.3439 9 12.0007 9C13.6576 9 15.0007 10.3431 15.0007 12Z" stroke="#ff00d0" stroke-width="0.648" stroke-linecap="round" stroke-linejoin="round"></path> <path d="M12.0012 5C7.52354 5 3.73326 7.94288 2.45898 12C3.73324 16.0571 7.52354 19 12.0012 19C16.4788 19 20.2691 16.0571 21.5434 12C20.2691 7.94291 16.4788 5 12.0012 5Z" stroke="#ff00d0" stroke-width="0.648" stroke-linecap="round" stroke-linejoin="round"></path> </g></svg>
+                <svg width="16px" height="16px" viewBox="-2.4 -2.4 28.80 28.80" fill="none" xmlns="http://www.w3.org/2000/svg" stroke="#05e654"><g id="SVGRepo_bgCarrier" strokeWidth="0"></g><g id="SVGRepo_tracerCarrier" strokeLinecap="round" strokeLinejoin="round" stroke="#CCCCCC" strokeWidth="0.048"></g><g id="SVGRepo_iconCarrier"> <path d="M15.0007 12C15.0007 13.6569 13.6576 15 12.0007 15C10.3439 15 9.00073 13.6569 9.00073 12C9.00073 10.3431 10.3439 9 12.0007 9C13.6576 9 15.0007 10.3431 15.0007 12Z" stroke="#ff00d0" strokeWidth="0.648" strokeLinecap="round" strokeLinejoin="round"></path> <path d="M12.0012 5C7.52354 5 3.73326 7.94288 2.45898 12C3.73324 16.0571 7.52354 19 12.0012 19C16.4788 19 20.2691 16.0571 21.5434 12C20.2691 7.94291 16.4788 5 12.0012 5Z" stroke="#ff00d0" strokeWidth="0.648" strokeLinecap="round" strokeLinejoin="round"></path> </g></svg>
                 </button>
               </th>
             </tr>))}
@@ -132,7 +143,7 @@ export default function HealthcareProvider() {
           :
           data ?
           // @ts-ignore
-          <DoctorCard doc={data}/>
+          <DoctorCard doc={data} who="hospital"/>
           :
           <div className="card w-96 bg-base-100 shadow-xl image-full">
             <figure><img src="/vect1.webp" alt="Shoes" /></figure>

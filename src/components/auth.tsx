@@ -13,6 +13,7 @@ import { useEagerConnect, useInactiveListener } from "../dapp/hooks";
 import logger from "../logger";
 import useLocalStorage from "../hooks/useLocalStorage";
 import { useRouter } from "next/router";
+import useContract from "../dapp/contract";
 
 
 function getErrorMessage(error?: Error) {
@@ -41,7 +42,7 @@ export function Auth() {
   const { connector, library, account, activate, deactivate, active, error } =
     context;
   const router = useRouter();
-
+  const contract = useContract()
   // Handle logic to recognize the connector currently being activated
   const [activatingConnector, setActivatingConnector] = useState<any>();
   useEffect(() => {
@@ -62,11 +63,47 @@ export function Auth() {
   const connected = (connection: typeof injected | typeof walletconnect) =>
     connection === connector;
   const disabled =
-    !triedEager ||
+    // !triedEager ||
     Boolean(activatingConnector) ||
     connected(injected) ||
     connected(walletconnect) ||
     Boolean(error);
+  
+    const Connect = async () => {
+      setActivatingConnector(injected);
+      activate(injected).catch(logger.error);
+    }
+    useEffect(() => {
+      verifyUser()
+
+    }, [active, account])
+    const verify = async (_address: string) => {
+      if (!contract) return "Unabble to verify"
+      if (await contract.verifyHospital(_address) === true) {
+        console.log("Hospital")
+        return "hospital"
+      }
+      else if (await contract.verifyDoctor(_address) === true) {
+        console.log("Doctor")
+        return "doctor"}
+      else {
+        console.log("Patient")
+        return "patient"}
+    }
+
+    const verifyUser = async () => {if (active && connected(injected) &&  account) {
+      try {
+        setDeactivated(false)
+        const url = await verify(account)
+        router.push(`/${url}`)
+      } catch (error) {
+        console.error(error)
+      }
+    } else {
+      console.log("Unable to verify user")
+    }
+  }
+
   return (
     <div className="" >
       <div>
@@ -91,10 +128,7 @@ export function Auth() {
                 type="button"
                 className="btn btn-primary"
                 disabled={disabled}
-                onClick={() => {
-                  setActivatingConnector(injected);
-                  activate(injected).catch(logger.error);
-                }}
+                onClick={Connect}
               >
                 <div className="py-4 px-2">
                   {activating(injected) && (
@@ -142,7 +176,6 @@ export function Auth() {
                       if (connected(walletconnect)) {
                         (connector as any).close();
                       }
-
                       deactivate();
                       setDeactivated(true);
                     }}

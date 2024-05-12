@@ -1,11 +1,16 @@
 import React, { useState } from "react";
 import { MedicalRecord } from "../types/healthchain_types";
-import { createRecord, updateRecord } from "../dapp/api";
+import useContract from "../dapp/contract";
+import { Contract } from "ethers";
+import {v4 as uuidv4} from "uuid"
+import { encodePatientData } from "../dapp/encoder";
 
 type Props = { who: "doctor" | "hospital" }
 const MedicalRecordForm: React.FC<Props> = ({who}) => {
-  const [formData, setFormData] = useState<Partial<MedicalRecord>>({
-    patientName: "",
+  const contract = useContract() as Contract
+  const [formData, setFormData] = useState<MedicalRecord>({
+    id: "",
+    name: "",
     diagnosis: "",
     medications: [],
     doctor: "",
@@ -47,12 +52,15 @@ const MedicalRecordForm: React.FC<Props> = ({who}) => {
     e.preventDefault();
     // Handle form submission
     if (formData.walletAddress || formData.diagnosis) {
+      const id = uuidv4()
+      formData.id = id;
+      const dataHash = encodePatientData(formData)
       try {
         if (who === "doctor" && formData.walletAddress) {
-          const response = await updateRecord(formData.walletAddress, formData)
+          const response = await contract.updatePatientRecord(formData.walletAddress, dataHash)
           console.log(response)
         } else if (who === "hospital" && formData.walletAddress)  {
-          const response = await createRecord(formData.walletAddress, formData)
+          const response = await contract.createRecord(formData.walletAddress, formData)
           console.log(response)
         }
       } catch (e: any) {
@@ -68,7 +76,7 @@ const MedicalRecordForm: React.FC<Props> = ({who}) => {
         name="patientName"
         placeholder="Name of patient"
         className="input input-bordered input-primary w-full max-w-xs"
-        value={formData.patientName}
+        value={formData.name}
         onChange={handleInputChange}
       />
       <input

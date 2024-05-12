@@ -14,8 +14,8 @@ deactivated = getStatus()
 const notProtected = ["/", "/register", "/login"];
 
 export default function middleware(req: NextRequest) {
-  // if (deactivated && !notProtected.includes(req.nextUrl.pathname)) {
-  //   const newURL = new URL("/login", req.nextUrl.origin);
-  //   return NextResponse.redirect(newURL.toString())
-  // }
+  if (deactivated && !notProtected.includes(req.nextUrl.pathname)) {
+    const newURL = new URL("/login", req.nextUrl.origin);
+    return NextResponse.redirect(newURL.toString())
+  }
 }

@@ -4,8 +4,8 @@ export type Medication = {
 };
 
 export type MedicalRecord = {
-    id: number;
-    patientName: string;
+    id: string;
+    name: string;
     diagnosis: string;
     medications: Medication[];
     doctor: string;

@@ -2,15 +2,13 @@
   "name": "dapp-starter",
   "version": "0.5.0",
   "scripts": {
-    "build": "npx hardhat compile --network localhost && next build",
+    "build": "next build",
     "check": "biome check .",
     "clean": "npx hardhat clean && rimraf -rf src/types",
     "dev": "next dev",
     "format": "biome format . --write",
     "lint": "biome lint .",
-    "lint:sol": "npx solhint 'contracts/**/*.sol'",
-    "start": "next start",
-    "test": "npx hardhat test"
+    "start": "next start"
   },
   "dependencies": {
     "@ethersproject/abi": "5.7.0",
@@ -26,6 +24,8 @@
     "next": "14.2.3",
     "react": "18.3.1",
     "react-dom": "18.3.1",
+    "react-hot-toast": "^2.4.1",
+    "uuid": "^9.0.1",
     "web3-react": "5.0.5"
   },
   "devDependencies": {
@@ -46,6 +46,7 @@
     "@types/node": "20.12.8",
     "@types/react": "18.3.1",
     "@types/react-dom": "18.3.0",
+    "@types/uuid": "^9.0.8",
     "autoprefixer": "10.4.19",
     "chai": "4.4.1",
     "dotenv": "16.4.5",
