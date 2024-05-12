@@ -1,184 +1,55 @@
-# Welcome to dapp-starter 👋
+# HealthChain: Secure Patient-Driven Decentralized Medical Record Exchange
 
-<!-- ALL-CONTRIBUTORS-BADGE:START - Do not remove or modify this section -->
+"HealthChain" aims to revolutionize how medical records are managed and shared, placing control firmly in the hands of patients while ensuring security, privacy, and interoperability. This concept not only fosters trust between patients and healthcare providers but also paves the way for a more efficient and secure healthcare information exchange.
 
-[![All Contributors](https://img.shields.io/badge/all_contributors-2-orange.svg?style=flat-square)](#contributors-)
+In developing economies, the significance of effectively managing patient medical records cannot be overstated. Currently, patients encounter the inconvenience of having to repeatedly register their medical history whenever they visit a new healthcare facility, either locally or in another location. This often results in redundant tests being conducted by new healthcare providers, leading to unnecessary expenses and delays in treatment. Furthermore, in areas lacking testing facilities, patients are forced to travel long distances to access necessary medical examinations.
 
-<!-- ALL-CONTRIBUTORS-BADGE:END -->
+HealthChain addresses this critical issue by leveraging blockchain technology to facilitate the secure and efficient sharing of medical records, subject to patient approval. With HealthChain, patients no longer need to undergo redundant tests or travel extensively to access medical laboratories or testing facilities. Through secure and user-controlled access permissions, patients can authorize or revoke access to their medical records, ensuring privacy and data security while streamlining healthcare delivery.
 
-![Version](https://img.shields.io/badge/version-0.0.1-blue.svg?cacheSeconds=2592000)
-[![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](#)
-[![Twitter: jellydn](https://img.shields.io/twitter/follow/jellydn.svg?style=social)](https://twitter.com/jellydn)
 
-> Opinionated Dapp Starter Template
+## Core Features
 
-## 🏠 [Homepage](https://dapp-starter.productsway.com)
+ ## Decentralized Identity Verification: 
+ Patients and healthcare providers have unique blockchain-based identities. This ensures secure and verifiable interactions.
 
-## ✨ [Demo](https://dapp-starter.productsway.com)
+## Permissioned Record Access: 
+Patients grant or revoke access to their medical records through smart contracts. Only authorized entities (as permitted by the patient) can view or update records.
 
-## Screenshot
+ ## Immutable Audit Trail: 
+ Every access or modification of a medical record is recorded on the blockchain. This provides an immutable history of who accessed what and when, enhancing transparency and trust.
 
-![./screenshot.png](./screenshot.png)
+## Data Encryption: 
+patient medical records data are encrypted. This ensures that data privacy is maintained, even if the blockchain is public.
 
-### Connect to MetaMask
+ ## Smart Contract for Consent Management: 
+ HealthChain smart contracts are developed to  manage consents for medical record access. Only a verified hospital can add a patient or doctor, only the patient can approve a verified doctor to access or update the patient's medical record.
 
-![https://gyazo.com/6b8f75171de1fab24de552ff7930f4b8.gif](https://gyazo.com/6b8f75171de1fab24de552ff7930f4b8.gif)
+ ## Patient-Centric Interface: 
+ A user-friendly interface for patients to easily manage access permissions, view access logs, and receive notifications for access requests.
 
-### Wallet Connect
+## Healthcare Provider Portal: 
+A secure portal for healthcare providers to request access to patient records, update medical data (as permitted), and view patient-consented information.
 
-![https://gyazo.com/2995c3a2c4bdbda806821839826449dc.gif](https://gyazo.com/2995c3a2c4bdbda806821839826449dc.gif)
+# Challenges and Considerations
 
-### Show balance and sign message
+- ## Scalability: 
+Blockchain networks, especially those using smart contracts like Ethereum, can face scalability issues. Solutions such as layer 2 scaling solutions or alternative blockchains might be needed. Lisk L2 is the perfect match as it provides faster transaction time at a lower gas fee and is also interoperable as a superchain collective.
 
-![https://gyazo.com/8e8ca7c89193d6f1463081bcd41c587e.gif](https://gyazo.com/8e8ca7c89193d6f1463081bcd41c587e.gif)
+- ## Data Storage: 
+Blockchain is not suited for storing large volumes of data like images or detailed medical records. Use off-chain storage solutions for the data itself, with blockchain managing access and integrity checks. Light.house provides the ipfs and ipns options for decentralized storage.
+- ## Regulatory Compliance: 
+HealthChain complies with healthcare regulations and data protection laws (like HIPAA in the US or GDPR in Europe). This includes considerations for data encryption, patient consent, and data portability.
 
-## Features
+- ## Interoperability Standards: 
+HealthChain is compatible with existing healthcare data standards (like HL7, FHIR) for easier integration with current systems.
 
-- ⚡️ The React Framework for Production [NextJs](https://https://nextjs.org//)
-- 📦 [Hardhat](https://hardhat.org/) - Ethereum development environment for professionals
-- 🦾 [TypeChain Hardhat plugin](https://github.com/ethereum-ts/TypeChain/tree/master/packages/hardhat) - Automatically generate TypeScript bindings for smartcontracts while using Hardhat.
-- 🔥 [web3-react](https://github.com/NoahZinsmeister/web3-react/) - A simple, maximally extensible, dependency minimized framework for building modern Ethereum dApps
-- 🎨 [daisyUI Tailwind CSS Components](https://daisyui.com/) - clean HTML with component classes
-- 🎨 [OpenZeppelin](https://docs.openzeppelin.com/contracts/4.x/) - standard for secure blockchain applications
+## Prototype Development
 
-## Install
+1. ## Smart Contract Development: 
+A Solidity smart contract developed with hardhat tool was developed to handle identity verification, access permissions, and the audit trail of record access.
 
-```sh
-pnmm install
-```
+2. ## Blockchain Network: 
+Lisk L2 blockchain  for lower transaction costs, speed, interoperability and security.
 
-## Usage
-
-```sh
-pnpm run dev
-```
-
-## Run tests
-
-```sh
-pnpm run test
-```
-
-## Pre-commit
-
-This project uses [Pre-commit](https://pre-commit.com/) to enforce code quality. To install pre-commit, run:
-
-```sh
-pre-commit install
-```
-
-## Hardhat guideline
-
-This project demonstrates an advanced Hardhat use case, integrating other tools commonly used alongside Hardhat in the ecosystem.
-
-The project comes with a sample contract, a test for that contract, a sample script that deploys that contract, and an example of a task implementation, which simply lists the available accounts. It also comes with a variety of other tools, preconfigured to work with the project code.
-
-Try running some of the following tasks:
-
-```shell
-npx hardhat accounts
-npx hardhat compile --network localhost
-npx hardhat clean
-npx hardhat test
-npx hardhat node
-npx hardhat help
-REPORT_GAS=true npx hardhat test
-npx hardhat coverage
-npx hardhat run scripts/deploy_greeter.ts --network localhost
-node scripts/deploy.ts
-npx eslint '**/*.ts'
-npx eslint '**/*.ts' --fix
-npx prettier '**/*.{json,sol,md}' --check
-npx prettier '**/*.{json,sol,md}' --write
-npx solhint 'contracts/**/*.sol'
-npx solhint 'contracts/**/*.sol' --fix
-```
-
-## Deploy to Ropsten Testnet
-
-- Sign up and earn [$100 in credit](https://alchemy.com/?r=9ae3d9f1-56c4-476e-9f7e-23387e0e166a) on alchemy. More detail [here](https://docs.alchemy.com/alchemy/introduction/referral-program).
-
-- Send some ETH to your wallet https://faucet.dimensions.network/
-
-## Etherscan verification
-
-To try out Etherscan verification, you first need to deploy a contract to an Ethereum network that's supported by Etherscan, such as Ropsten.
-
-In this project, copy the .env.example file to a file named .env, and then edit it to fill in the details. Enter your Etherscan API key, your Ropsten node URL (eg from Alchemy), and the private key of the account which will send the deployment transaction. With a valid .env file in place, first deploy your contract:
-
-```shell
-npx hardhat run --network ropsten scripts/deploy_greeter.ts
-```
-
-Then, copy the deployment address and paste it in to replace `DEPLOYED_CONTRACT_ADDRESS` in this command:
-
-```shell
-npx hardhat verify --network ropsten DEPLOYED_CONTRACT_ADDRESS "Hello, Hardhat!"
-```
-
-## Contract upgrade
-
-OpenZeppelin provides tooling for deploying and securing [upgradeable smart contracts](https://docs.openzeppelin.com/learn/upgrading-smart-contracts).
-
-Smart contracts deployed using OpenZeppelin Upgrades Plugins can be upgraded to modify their code, while preserving their address, state, and balance. This allows you to iteratively add new features to your project, or fix any bugs you may find in production.
-
-In this project, there are a 2 versions of contract: Box and BoxV2 which is improvement of Box. First deploy your contract:
-
-```shell
-npx hardhat run --network localhost scripts/deploy_upgradeable_box.ts
-```
-
-Then, deploy the upgrade smart contract
-
-```shell
-npx hardhat run --network localhost scripts/upgrade_box.ts
-```
-
-## Examples
-
-- [Simple Store App](https://github.com/jellydn/dapp-starter/pull/20): counter-like smart contract, read/write value and listen to event from smart contract.
-- [ICO Token App](https://github.com/jellydn/dapp-token-ico): How to create An ERC20 token and implement ICO smart contract (CrowdSale).
-- [NFT App](https://github.com/jellydn/nft-app): How to create An ERC721 token.
-
-## Author
-
-👤 **Dung Huynh**
-
-- Website: https://productsway.com/
-- Twitter: [@jellydn](https://twitter.com/jellydn)
-- Github: [@jellydn](https://github.com/jellydn)
-
-## Stargazers 🌟
-
-[![Stargazers repo roster for jellydn/dapp-starter](https://reporoster.com/stars/jellydn/dapp-starter)](https://github.com/jellydn/dapp-starter/stargazers)
-
-## Show your support
-
-[![kofi](https://img.shields.io/badge/Ko--fi-F16061?style=for-the-badge&logo=ko-fi&logoColor=white)](https://ko-fi.com/dunghd)
-[![paypal](https://img.shields.io/badge/PayPal-00457C?style=for-the-badge&logo=paypal&logoColor=white)](https://paypal.me/dunghd)
-[![buymeacoffee](https://img.shields.io/badge/Buy_Me_A_Coffee-FFDD00?style=for-the-badge&logo=buy-me-a-coffee&logoColor=black)](https://www.buymeacoffee.com/dunghd)
-
-Give a ⭐️ if this project helped you!
-
-## Contributors ✨
-
-Thanks goes to these wonderful people ([emoji key](https://allcontributors.org/docs/en/emoji-key)):
-
-<!-- ALL-CONTRIBUTORS-LIST:START - Do not remove or modify this section -->
-<!-- prettier-ignore-start -->
-<!-- markdownlint-disable -->
-<table>
-  <tbody>
-    <tr>
-      <td align="center" valign="top" width="14.28%"><a href="https://productsway.com/"><img src="https://avatars.githubusercontent.com/u/870029?v=4?s=100" width="100px;" alt="Dung Duc Huynh (Kaka)"/><br /><sub><b>Dung Duc Huynh (Kaka)</b></sub></a><br /><a href="https://github.com/jellydn/dapp-starter/commits?author=jellydn" title="Documentation">📖</a> <a href="https://github.com/jellydn/dapp-starter/commits?author=jellydn" title="Code">💻</a></td>
-      <td align="center" valign="top" width="14.28%"><a href="https://bio.warengonzaga.com/"><img src="https://avatars.githubusercontent.com/u/15052701?v=4?s=100" width="100px;" alt="Waren Gonzaga"/><br /><sub><b>Waren Gonzaga</b></sub></a><br /><a href="#financial-warengonzaga" title="Financial">💵</a></td>
-    </tr>
-  </tbody>
-</table>
-
-<!-- markdownlint-restore -->
-<!-- prettier-ignore-end -->
-
-<!-- ALL-CONTRIBUTORS-LIST:END -->
-
-This project follows the [all-contributors](https://github.com/all-contributors/all-contributors) specification. Contributions of any kind welcome!
+3. ## Frontend Application: 
+Develop a patient and healthcare provider interface using Nextjs and integrate with blockchain using libraries like  ethers.js.
