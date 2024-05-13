@@ -1,41 +1,12 @@
 import { useCallback, useEffect, useState } from "react";
 import { Search } from "../components/Search";
-import { MedicalRecord, Patient } from "../types/healthchain_types";
+import { MedicalRecord } from "../types/healthchain_types";
 import { PatientCard } from "../components/access";
 import MedicalRecordForm from "../components/medicalRecord";
 import { useWeb3React } from "@web3-react/core";
 import { Web3Provider } from "@ethersproject/providers";
 import { useEagerConnect, useInactiveListener } from "../dapp/hooks";
 import withAuth from "../components/middleware";
-
-
-
-const sampleRecords: MedicalRecord[] = [
-  {
-    id: "1",
-    name: "John Doe",
-    diagnosis: "Hypertension",
-    medications: [
-      { name: "Lisinopril", dosage: "10mg" },
-      { name: "Hydrochlorothiazide", dosage: "25mg" },
-    ],
-    doctor: "Dr. Smith",
-    date: "15-4-2024",
-    walletAddress: "0xkrjq2IOJRDFNVJKFNKONWKLFMEWKMEKDJ"
-  },
-  {
-    id: "2",
-    name: "Jane Smith",
-    diagnosis: "Type 2 Diabetes",
-    medications: [
-      { name: "Metformin", dosage: "500mg" },
-      { name: "Insulin", dosage: "10 units" },
-    ],
-    doctor: "Dr. Johnson",
-    date: "12-2-24",
-    walletAddress: "0xkrjq2IOJRDFNVJKFNKONWKLFMEWKMEKDJ"
-  },
-];
 
 
 function Doctor() {
@@ -56,7 +27,7 @@ function Doctor() {
 
   const [name, setName] = useState(context.account);
   const [selectedPatient, setSelectedPatient] = useState<any>(null)
-  const [record, setRecord] = useState<MedicalRecord[] | null>(sampleRecords)
+  const [record, setRecord] = useState<MedicalRecord[] | null>([])
   
   const handleData = useCallback((state: any) => {
     setSelectedPatient(state)
@@ -65,7 +36,7 @@ function Doctor() {
   return (
     <div className="flex flex-col items-center justify-center min-w-full">
       <div className="card card-normal bg-base-100 shadow-xl mb-2 w-full">
-        <h1 className="text-center m-2 p-8 text-lg font-semibold">{name}</h1>
+        <h1 className="text-center m-2 p-8 text-lg font-semibold">Welcome {name} !</h1>
       </div>
       <Search title="patient" handleData={handleData}/>
       <div className='flex sm:flex-row flex-col gap-2 w-full mx-auto'>
@@ -134,4 +105,4 @@ function Doctor() {
   );
 }
 
-export default withAuth(Doctor)
+export default withAuth(Doctor);

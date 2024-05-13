@@ -10,28 +10,20 @@ const medicalRecordParamType = ethers.utils.ParamType.from({
     { "name": "dosage", "type": "string" },
   ]
 });
-
 const paramTypes = [
-  ethers.utils.ParamType.from({
-    "name": "name",
-    "type": "string"
-  }),
   ethers.utils.ParamType.from({
     "name": "id",
     "type": "string"
   }),
   ethers.utils.ParamType.from({
-    "name": "walletAddress",
-    "type": "string"
-  }),
-  ethers.utils.ParamType.from({
-    "name": "walletAddress",
+    "name": "name",
     "type": "string"
   }),
   ethers.utils.ParamType.from({
     "name": "diagnosis",
     "type": "string"
   }),
+  medicalRecordParamType,
   ethers.utils.ParamType.from({
     "name": "doctor",
     "type": "string"
@@ -40,22 +32,27 @@ const paramTypes = [
     "name": "date",
     "type": "string"
   }),
-  medicalRecordParamType
+  ethers.utils.ParamType.from({
+    "name": "walletAddress",
+    "type": "string"
+  }),
+  
 ];
 
 // Encode the patient data to bytes
 export function encodePatientData(data: MedicalRecord) {
   const encodedData = ethers.utils.defaultAbiCoder.encode(paramTypes, [
+    data.id,
     data.name,
-    data.walletAddress,
+    data.diagnosis,
     data.medications.map(record => [
       record.name,
       record.dosage,
       ]),
-    data.diagnosis,
     data.doctor,
     data.date,
-    data.id,
+    data.walletAddress,
+    
   ]);
 
   // return encodedData in hex string so blockchain can accept the bytes type;
@@ -75,60 +72,15 @@ export function decodePatientData(bytes: string) {
   const decodedData = ethers.utils.defaultAbiCoder.decode(paramTypes, encodedData);
 
   return {
-    name: decodedData[0],
-    walletAddress: decodedData[1],
-    medications: decodedData[2].map(record => ({
+    id: decodedData[0],
+    name: decodedData[1],
+    diagnosis: decodedData[2],
+    medications: decodedData[3].map(record => ({
       name: record[0],
       dosage: record[1],
     })),
-    diagnosis: decodedData[3],
     doctor: decodedData[4],
     date: decodedData[5],
-    id: decodedData[6]
+    walletAddress: decodedData[6],
   };
 }
-
-// // Example usage
-// const patientData = {
-//   name: "John Doe",
-//   address: "123 Main Street, Lagos",
-//   medicalRecords: [
-//     { diagnosis: "Allergy", treatment: "Antihistamines", date: "2022-01-01" },
-//     { diagnosis: "Fractured Arm", treatment: "Cast", date: "2022-02-15" }
-//   ]
-// };
-
-// function addMedicalRecord(obj, newRecord) { // obj is decoded patient record
-//   obj.medicalRecords.push(newRecord);
-// }
-
-// // Function to get all medical records
-// function getAllMedicalRecords(obj) {
-//   return obj.medicalRecords;
-// }
-
-// // Function to search for a record by index
-// function getMedicalRecordAtIndex(obj, index) {
-//   return obj.medicalRecords[index];
-// }
-
-
-// // console.log(`normal data : ${patientData.name}\n records : ${patientData.medicalRecords}`)
-// const newMedicalRecord = { diagnosis: "Fever", treatment: "Rest", date: "2024-05-07" };
-// addMedicalRecord(patientData, newMedicalRecord);
-// console.log("Updated Object with New Record:", patientData);
-
-
-
-// const encodedPatientData2 = encodePatientData(patientData);
-// console.log("Encoded Patient Data:", encodedPatientData2);
-
-// const decodedPatientData2 = decodePatientData(encodedPatientData2);
-// console.log("Decoded Patient Data:", decodedPatientData2);
-
-// const allRecords = getAllMedicalRecords(patientData);
-// console.log("All Medical Records:", allRecords);
-
-// const index = 2; // Example index
-// const recordAtIndex = getMedicalRecordAtIndex(patientData, index);
-// console.log(`Medical Record at index ${index}:`, recordAtIndex);

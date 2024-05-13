@@ -4,11 +4,12 @@ import useContract from "../dapp/contract";
 import { Contract } from "ethers";
 import {v4 as uuidv4} from "uuid"
 import { encodePatientData } from "../dapp/encoder";
+import toast from "react-hot-toast";
 
 type Props = { who: "doctor" | "hospital" }
 const MedicalRecordForm: React.FC<Props> = ({who}) => {
   const contract = useContract() as Contract
-  const [formData, setFormData] = useState<MedicalRecord>({
+  const init = {
     id: "",
     name: "",
     diagnosis: "",
@@ -16,7 +17,8 @@ const MedicalRecordForm: React.FC<Props> = ({who}) => {
     doctor: "",
     date: "",
     walletAddress: ""
-  });
+  }
+  const [formData, setFormData] = useState<MedicalRecord>(init);
 
   const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const { name, value } = e.target;
@@ -57,14 +59,20 @@ const MedicalRecordForm: React.FC<Props> = ({who}) => {
       const dataHash = encodePatientData(formData)
       try {
         if (who === "doctor" && formData.walletAddress) {
+          toast.loading("Updating patient record", {id: "who"})
           const response = await contract.updatePatientRecord(formData.walletAddress, dataHash)
+          toast.success("Patient record updated", {id: "who"})
+          setFormData(init)
           console.log(response)
         } else if (who === "hospital" && formData.walletAddress)  {
-          const response = await contract.createRecord(formData.walletAddress, formData)
+          toast.loading("Creating patient record", {id: "who"})
+          const response = await contract.createRecord(formData.walletAddress, dataHash)
           console.log(response)
+          toast.success("Patient record created", {id: "who"})
         }
       } catch (e: any) {
-        console.error(e)
+        toast.error(e.reason, {id: "who"})
+        console.error(e.reason)
       }
     }  
   };
@@ -73,7 +81,7 @@ const MedicalRecordForm: React.FC<Props> = ({who}) => {
     <form onSubmit={handleSubmit} className="flex flex-col space-y-3">
       <input
         type="text"
-        name="patientName"
+        name="name"
         placeholder="Name of patient"
         className="input input-bordered input-primary w-full max-w-xs"
         value={formData.name}

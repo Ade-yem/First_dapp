@@ -4,7 +4,6 @@ import "../index.css";
 import { Web3ReactProvider } from "@web3-react/core";
 import getLibrary from "../provider/Web3Provider";
 import Head from "next/head";
-import withAuth from "../components/middleware";
 
 
 function MyApp({ Component, pageProps }: AppProps) {

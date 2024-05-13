@@ -50,13 +50,6 @@ export function Auth() {
       setActivatingConnector(undefined);
     }
   }, [activatingConnector, connector]);
-  const [deactivated, setDeactivated] = useLocalStorage<true | false>("deactivated", false);
-
-  // Handle logic to eagerly connect to the injected ethereum provider, if it exists and has granted access already
-  const triedEager = useEagerConnect();
-
-  // Handle logic to connect in reaction to certain events on the injected ethereum provider, if it exists
-  useInactiveListener(!triedEager || Boolean(activatingConnector));
 
   const activating = (connection: typeof injected | typeof walletconnect) =>
     connection === activatingConnector;
@@ -85,7 +78,11 @@ export function Auth() {
       }
       else if (await contract.verifyDoctor(_address) === true) {
         console.log("Doctor")
-        return "doctor"}
+        return "doctor"
+      } else if (await contract.owner === context.account) {
+        console.log("Admin")
+        return "admin"
+      }
       else {
         console.log("Patient")
         return "patient"}
@@ -93,7 +90,6 @@ export function Auth() {
 
     const verifyUser = async () => {if (active && connected(injected) &&  account) {
       try {
-        setDeactivated(false)
         const url = await verify(account)
         router.push(`/${url}`)
       } catch (error) {
@@ -155,7 +151,6 @@ export function Auth() {
                           .getSigner(account)
                           .signMessage("👋")
                           .then((signature: any) => {
-                            setDeactivated(false);
                             if (usePathname() === "/login") router.push("/");
                             window.alert(`Success!\n\n${signature}`);
                           })
@@ -177,7 +172,6 @@ export function Auth() {
                         (connector as any).close();
                       }
                       deactivate();
-                      setDeactivated(true);
                     }}
                   >
                     Deactivate
@@ -231,7 +225,6 @@ export function Auth() {
                           .getSigner(account)
                           .signMessage("👋")
                           .then((signature: any) => {
-                            setDeactivated(true);
                             window.alert(`Success!\n\n${signature}`);
                           })
                           .catch((err: Error) => {
@@ -251,9 +244,7 @@ export function Auth() {
                       if (connected(walletconnect)) {
                         (connector as any).close();
                       }
-
                       deactivate();
-                      setDeactivated(true);
                     }}
                   >
                     Deactivate

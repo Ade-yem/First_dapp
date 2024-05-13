@@ -5,7 +5,6 @@ import { useRouter } from "next/router";
 import useLocalStorage from "../hooks/useLocalStorage";
 import useContract from "../dapp/contract";
 import { Contract } from "ethers";
-import { useState } from "react";
 
 
 export function Account() {
@@ -13,14 +12,11 @@ export function Account() {
   const context = useWeb3React<Web3Provider>();
   const contract = useContract() as Contract
   const router = useRouter();
-  const [deactivated, setDeactivated] = useLocalStorage<true | false>("theme", false);
   const Disconnect = async () => {
-    await context.deactivate();
-    setDeactivated(true)
-    router.push("/login");
+    context.deactivate();
   }
   const verify = async () => {
-    let profile: "hospital" | "doctor" | "patient";
+    let profile: "hospital" | "doctor" | "patient" | "admin";
     if (!contract) return "Unabble to verify"
     if (await contract.verifyHospital(context.account) === true) {
       console.log("Hospital")
@@ -28,7 +24,11 @@ export function Account() {
     }
     else if (await contract.verifyDoctor(context.account) === true) {
       console.log("Doctor")
-      profile = "doctor"}
+      profile = "doctor"
+    } else if (await contract.owner === context.account) {
+      console.log("Admin")
+      profile = "admin"
+    }
     else {
       console.log("Patient")
       profile = "patient"
@@ -58,7 +58,7 @@ export function Account() {
       {active ? (
         <ul>
       <li className="" onClick={verify}>Profile</li>
-      <li className="" onClick={Disconnect}><Link href={"/"}>Logout</Link></li>
+      <li className="" onClick={Disconnect}>Logout</li>
       </ul>) : 
       <Link href={"/login"}><span className="p-2">Login with wallet</span></Link>
       }

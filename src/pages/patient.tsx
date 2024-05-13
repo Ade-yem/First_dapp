@@ -2,7 +2,7 @@
 import React, { useCallback, useEffect, useState } from 'react';
 import { Doctor, MedicalRecord } from '../types/healthchain_types';
 import { Search } from '../components/Search';
-import { DoctorCard } from '../components/access';
+import SearchForm, { DoctorCard } from '../components/access';
 import { Web3Provider } from '@ethersproject/providers';
 import { useWeb3React } from '@web3-react/core';
 import { useEagerConnect, useInactiveListener } from '../dapp/hooks';
@@ -31,7 +31,6 @@ const PatientDashboard = () => {
     useInactiveListener(!triedEager || Boolean(activatingConnector));
 
   // Replace this with actual patient data fetched from an API or context
-  const patientName = 'John Doe';
   const [selectedDoctor, setselectedDoctor] = useState<Doctor | null>(null)
   const [visible, setVisible] = useState(false)
   // Simulated access logs (replace with actual data)
@@ -40,23 +39,6 @@ const PatientDashboard = () => {
     { id: 2, date: '2023-05-15', action: 'Access revoked from Dr. Johnson' },
     // Add more logs as needed
   ];
-  const [records, setRecords] = useState<MedicalRecord[]>([]);
-  // Function to fetch medical records from the server
-  const fetchMedicalRecords = async () => {
-
-    try {
-      // Sample data
-      toast.loading("Getting medical records", {id:"patient"})
-      const dataHash = await contract.getPatientRecord(context.account)
-      const data = decodePatientData(dataHash)
-      console.log(data)
-      toast.success("Success", {id:"patient"})
-      setRecords([data]);
-    } catch (error) {
-      toast.error(error.reason ? error.reason : "Connection error", {id:"patient"})
-      console.error("Error fetching medical records:", error.reason);
-    }
-  };
   
   const handleData = useCallback((state: any) => {
     setselectedDoctor(state)
@@ -90,7 +72,7 @@ const PatientDashboard = () => {
           </div>
         </div>
         </div>
-      <h1 className='text-center mt-2 p-8 text-2xl font-bold'>Welcome, {patientName}!</h1>
+      <h1 className='text-center mt-2 p-8 text-2xl font-semibold'>Welcome, {context.account}!</h1>
       </div>
       <div className='flex gap-2 flex-col'>
         {/* Access Logs Section */}
@@ -116,52 +98,26 @@ const PatientDashboard = () => {
         <div className="card card-normal bg-base-100 shadow-xl mb-2 w-full">
           <Search title="doctor" handleData={handleData}/>
         </div>
-        <div className='flex md:flex-row flex-col'>
-        <div className="card card-normal flex-grow justify-center mt-4 items-center">
-          <button className='btn-wide btn-accent btn' onClick={fetchMedicalRecords}>Load Medical Records</button>
-          <div className='flex flex-wrap m-3 gap-3'>
-          {records.map((record) => (
-              <div className='card shadow-xl bg-base-100 min-w-[250px] border border-accent p-4' key={record.id}>
-                <div className="flex justify-between">
-                  <h3 className="border-accent border-b m-2">{record.name}</h3>
-                  <div className="badge badge-ghost">{record.date}</div>
-                </div>
-                
-                <div className="block border-accent border-b p-2">
-                  <span className="font-semibold text-base">Diagnosis</span>
-                  <p className="text-sm"> {record.diagnosis}</p>
-                </div>
-                <div className="block border-accent border-b p-2">
-                  <span className="font-semibold text-base">Medications</span>
-                  <div>
-                    {record.medications.map((medic) => (
-                      <div>
-                        <span className=" font-medium text-sm">{medic.name}</span>
-                        <p className=" font-medium text-xs">{medic.dosage}</p>
-                      </div>
-                    ))}
-                  </div>
-                </div>
-                <div className="block border-accent border-b p-2">
-                  <span className="font-semibold text-base">Doctor</span>
-                  <p className="text-sm"> {record.doctor}</p>
-                </div>
-              </div>
-              ))}
-          </div>
-        </div>
-        {
-            visible && <div  className='relative'>
-              <div className='absolute top-2 right-1' onClick={() => {setVisible(false); setselectedDoctor(null)}}>
+        <div className='flex justify-center gap-4 md:flex-row flex-col'>
+          {
+            visible ? <div  className='relative'>
+              <div className='absolute top-2 right-3 cursor-pointer btn btn-circle btn-ghost z-50 max-w-40' onClick={() => {setVisible(false); setselectedDoctor(null)}}>
                 <span className='text-2xl'>X</span>
               </div>
               <DoctorCard doc={selectedDoctor} who='patient'/>
+            </div> :
+            <div className="card w-96 bg-base-100 shadow-xl h-full image-full">
+            <figure><img src="/vect1.webp" alt="Shoes" /></figure>
+            <div className="card-body w-full justify-center items-center">
+              <p>No doctor</p>
             </div>
+          </div>
           }
-
+          <div className="card w-96 bg-base-100 shadow-xl h-full image-full">
+          <figure><img src="/vect2.webp" alt="Shoes" /></figure>
+            <SearchForm/>
+          </div>
         </div>
-        
-
       </div>
     </div>
   );

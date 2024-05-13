@@ -1,6 +1,4 @@
 import React, { useState } from "react"
-import { Doctor, Hospital, Patient } from "../types/healthchain_types";
-import { sampleDoctor, sampleHospital } from "./access";
 import { ethers } from "ethers";
 import toast from "react-hot-toast"
 
@@ -47,15 +45,15 @@ export const Search: React.FC<SearchProps> = ({ title, handleData }) => {
           <span className="loading loading-dots loading-lg"></span>
           :
           !hidden && !loading && result ?
-          <div onClick={getData} className="flex items-center gap-3 p-2 bg-gray-300 w-full max-w-[500px] cursor-pointer border-success">  
+          <div onClick={getData} className="flex items-center gap-3 p-2 rounded-full bg-success w-full max-w-[500px] cursor-pointer border-success">  
             <div className="avatar placeholder">
-              <div className="bg-neutral text-neutral-content rounded-full w-24">
+              <div className="text-neutral-content shadow-md rounded-full w-12">
                 <span className="text-2xl">{"A"}</span>
               </div>
             </div>
             <div className="min-w-fit">
               {/* <div className="font-bold">{result.name}</div> */}
-              <div className="text-sm opacity-50 p-2">{result.address}</div>
+              <div className="text-sm text-neutral-content p-2">{result.address}</div>
             </div>
           </div> 
           :

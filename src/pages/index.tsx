@@ -5,7 +5,7 @@ function App() {
       <div className="hero-overlay bg-opacity-60"></div>
       <div className="hero-content text-center text-neutral-content">
         <div className="max-w-md">
-          <h1 className="mb-5 text-5xl font-bold">HealthChan</h1>
+          <h1 className="mb-5 text-5xl font-bold">HealthChain</h1>
           <p className="mb-5 text-lg">We aim to revolutionize how medical records are managed and shared, placing control firmly in the hands of the patient.</p>
           <a href="/login" className="btn btn-primary">Get Started</a>
         </div>
