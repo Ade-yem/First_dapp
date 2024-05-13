@@ -6,6 +6,7 @@ import MedicalRecordForm from "../components/medicalRecord";
 import { useWeb3React } from "@web3-react/core";
 import { Web3Provider } from "@ethersproject/providers";
 import { useEagerConnect, useInactiveListener } from "../dapp/hooks";
+import withAuth from "../components/middleware";
 
 
 
@@ -37,7 +38,7 @@ const sampleRecords: MedicalRecord[] = [
 ];
 
 
-export default function Doctor() {
+function Doctor() {
   const context = useWeb3React<Web3Provider>();
   // Handle logic to recognize the connector currently being activated
   const [activatingConnector, setActivatingConnector] = useState<any>();
@@ -132,3 +133,5 @@ export default function Doctor() {
     </div>
   );
 }
+
+export default withAuth(Doctor)

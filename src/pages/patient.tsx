@@ -9,6 +9,9 @@ import { useEagerConnect, useInactiveListener } from '../dapp/hooks';
 import { Contract } from 'ethers';
 import useContract from '../dapp/contract';
 import { decodePatientData } from '../dapp/encoder';
+import toast from 'react-hot-toast';
+import { useRouter } from 'next/router';
+import withAuth from '../components/middleware';
 
 const PatientDashboard = () => {
 
@@ -43,23 +46,50 @@ const PatientDashboard = () => {
 
     try {
       // Sample data
+      toast.loading("Getting medical records", {id:"patient"})
       const dataHash = await contract.getPatientRecord(context.account)
       const data = decodePatientData(dataHash)
       console.log(data)
+      toast.success("Success", {id:"patient"})
       setRecords([data]);
     } catch (error) {
+      toast.error(error.reason ? error.reason : "Connection error", {id:"patient"})
       console.error("Error fetching medical records:", error.reason);
     }
   };
   
-  const handleData = useCallback((state: Doctor | null) => {
+  const handleData = useCallback((state: any) => {
     setselectedDoctor(state)
     setVisible(true);
   }, [])
+  async function Register() {
+    try {
+      toast.loading("Registering you as hospital", {id: "hospital"})
+      const res  = await contract.registerHospital();
+      console.log(res)
+      toast.success("Hospital registration complete", {id: "hospital"})
+      useRouter().push("/hospital")
+
+    } catch (error) {
+      toast.error(error.reason ? error.reason : "Connection error", {id: "hospital"})
+      console.error(error.reason)
+    }
+  }
 
   return (
     <div className='min-h-screen'>
       <div className='bg-base-100'>
+        <div className='navbar'>
+        <div className="dropdown navbar-end">
+          <div tabIndex={0} role="button" className="btn btn-ghost btn-circle">
+            <svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M4 6h16M4 12h16M4 18h7" /></svg>
+          </div>
+          <div tabIndex={0} className="menu menu-sm dropdown-content mt-3 z-[1] p-2 shadow bg-base-100 rounded-box w-60">
+            <p>Register as an hospital here</p>
+            <button className="btn btn-xs mt-3 btn-secondary" onClick={Register}>Register</button>
+          </div>
+        </div>
+        </div>
       <h1 className='text-center mt-2 p-8 text-2xl font-bold'>Welcome, {patientName}!</h1>
       </div>
       <div className='flex gap-2 flex-col'>
@@ -137,4 +167,4 @@ const PatientDashboard = () => {
   );
 };
 
-export default PatientDashboard;
+export default withAuth(PatientDashboard);

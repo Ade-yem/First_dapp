@@ -1,5 +1,3 @@
-import { Web3Provider } from "@ethersproject/providers";
-import { useWeb3React } from "@web3-react/core";
 import { useState } from "react";
 import { Doctor, Hospital, Patient } from "../types/healthchain_types";
 import useContract from "../dapp/contract";
@@ -39,31 +37,31 @@ export const DoctorCard = ({ doc, who }: { doc: any; who: "hospital" | "patient"
     try {
     if (value) {
       if (who === "patient") {
-        toast.loading("Granting doctor access", {id: who})
+        toast.loading("Granting doctor access", {id: "who"})
         const res = await contract.grantDoctorAccess(doctor.address)
         console.log(res)
-        toast.success("Granted doctor access")
+        toast.success("Granted doctor access", {id: "who"})
       } else {
-        toast.loading("Adding doctor to hospital", {id: who})
+        toast.loading("Adding doctor to hospital", {id: "who"})
         const res = await contract.addDoctorTohospital(doctor.address)
         console.log(res)
-        toast.success("Doctor added to hospital")
+        toast.success("Doctor added to hospital", {id: "who"})
       }
     } else {
       if (who === "patient") {
-        toast.loading("Revoking doctor access", {id: who})
+        toast.loading("Revoking doctor access", {id: "who"})
         const res = await contract.revokeDoctorAccess(doctor.address)
         console.log(res)
         toast.success("Revoked doctor access")
       } else {
-        toast.loading("Removing doctor from hospital", {id: who})
+        toast.loading("Removing doctor from hospital", {id: "who"})
         const res = await contract.removeDoctorFromhospital(doctor.address)
         console.log(res)
-        toast.success("Doctor removed from hospital")
+        toast.success("Doctor removed from hospital", {id: "who"})
       }
     }
   } catch (error) {
-    toast.error(error.reason, {id: who})
+    toast.error(error.reason ? error.reason : "Connection error", {id: "who"})
     console.error("Error: " + error.reason)
   }
   }
@@ -106,7 +104,7 @@ export const PatientCard = ({ patient, setRecord }: { patient: any; setRecord: a
       setRecord(record)
       toast.success("Successful", {id: "doctor"})
     } catch (error) {
-      toast.error(error.reason, {id: "doctor"})
+      toast.error(error.reason ? error.reason : "Connection error", {id: "doctor"})
       console.error(error)
     }
   }

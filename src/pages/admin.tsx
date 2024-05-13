@@ -6,8 +6,9 @@ import { Hospital } from "../types/healthchain_types";
 import { useEagerConnect, useInactiveListener } from "../dapp/hooks";
 import useContract from "../dapp/contract";
 import toast from "react-hot-toast";
+import withAuth from "../components/middleware";
 
-export default function Admin() {
+function Admin() {
   const context = useWeb3React<Web3Provider>();
   const [loading, setLoading] = useState(false)
   // Handle logic to recognize the connector currently being activated
@@ -63,7 +64,7 @@ export default function Admin() {
         setLoading(false)
         toast.success("Hospital access revoked", {id: "admin"})
     } catch (error) {
-      toast.error(error.reason, {id: "admin"})
+      toast.error(error.reason ? error.reason : "Connection error" ? error.reason : "Connection error", {id: "admin"})
       console.error("Error: " + error.reason)
       setLoading(false)
     }
@@ -104,3 +105,5 @@ export default function Admin() {
     </div>
   );
 }
+
+export default withAuth(Admin);

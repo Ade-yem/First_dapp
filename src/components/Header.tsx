@@ -17,7 +17,7 @@ export function Header() {
             <span className="text-lg font-bold">HealthChain</span>
           </Link>
         </div>
-        <div className="flex navbar-end flex-none px-2 mx-2">
+        <div className="flex navbar-end py-2">
           <Account />
           <ThemeToggle />
         </div>

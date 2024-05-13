@@ -6,6 +6,7 @@ import { DoctorCard } from "../components/access";
 import toast from "react-hot-toast";
 import useContract from "../dapp/contract";
 import { Contract } from "ethers";
+import withAuth from "../components/middleware";
 
 
 const doctor_s: Doctor[] = [
@@ -52,7 +53,7 @@ const doctor_s: Doctor[] = [
 ];
 
 
-export default function HealthcareProvider() {
+function HealthcareProvider() {
   const [name, setName] = useState("St. Mary's Hospital");
   const [doctor, setDoctor] = useState<Doctor[]>(doctor_s)
   const [selectedDoctor, setselectedDoctor] = useState<Doctor | null>(null)
@@ -163,3 +164,5 @@ export default function HealthcareProvider() {
     </div>
   );
 }
+
+export default withAuth(HealthcareProvider);

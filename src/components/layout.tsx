@@ -11,7 +11,6 @@ export default function Layout({ children }) {
   useEffect(() => {
     const refresh = async () => {
         const deactivated = window.localStorage.getItem("deactivated");
-        console.log(deactivated);
         if (deactivated === "true") {
           context.deactivate()
         }
