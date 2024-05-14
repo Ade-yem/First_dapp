@@ -56,5 +56,7 @@ Develop a patient and healthcare provider interface using Nextjs and integrate w
 
 ## Demo
 [Visit HealthChain](https://healthchain-v1.vercel.app/)
+
 [Smart Contract repo](https://github.com/Etette/healthchain/tree/master/Healthchain%20Smart%20Contract)
+
 Smart contract address -- 0xd5DAE25D2707f17278716299d0cE7fF28A3FAbA3
