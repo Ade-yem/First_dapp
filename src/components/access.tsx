@@ -141,7 +141,7 @@ export const SearchForm = () => {
       <input
         type="text"
         placeholder="Search..."
-        className="w-full p-2 border rounded-md text-black outline-none focus:ring-2 focus:ring-secondary focus:border-transparent"
+        className="w-full p-2 border rounded-md text-info outline-none focus:ring-2 focus:ring-secondary focus:border-transparent"
         value={searchTerm}
         onChange={(e) => setSearchTerm(e.target.value)}
       />

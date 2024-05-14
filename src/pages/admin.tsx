@@ -106,4 +106,5 @@ function Admin() {
   );
 }
 
-export default withAuth(Admin);
+// export default withAuth(Admin);
+export default Admin;
