@@ -19,13 +19,13 @@ export default function Layout({ children }) {
     refresh();
   }, [])
   return (
-    <>
+    <div className="text-black dark:text-white">
       <Header />
       <Toaster position="top-right"/>
       <main className="mt-3 min-h-screen">
         {children}
       </main>
       <Footer />
-    </>
+    </div>
   );
 }

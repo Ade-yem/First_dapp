@@ -1,4 +1,3 @@
-import Script from "next/script";
 import { Account } from "./Account";
 import Link from "next/link";
 import dynamic from "next/dynamic";
@@ -17,7 +16,7 @@ export function Header() {
             <span className="text-lg font-bold">HealthChain</span>
           </Link>
         </div>
-        <div className="flex navbar-end py-2">
+        <div className="flex navbar-end">
           <Account />
           <ThemeToggle />
         </div>

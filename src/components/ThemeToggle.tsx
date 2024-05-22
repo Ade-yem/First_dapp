@@ -21,8 +21,8 @@ export default function ThemeToggle() {
   };
 
   return (
-    <div className="m-2">
-      <button type="button" className="btn" onClick={toggleTheme}>
+    <div className="">
+      <button type="button" className="btn btn-circle" onClick={toggleTheme}>
         {theme === "dark" ? "🌞" : "🌙"}
       </button>
     </div>

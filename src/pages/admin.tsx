@@ -80,14 +80,17 @@ function Admin() {
       </div>
       <div className="max-w-md mx-auto bg-white rounded-xl shadow-md overflow-hidden md:max-w-2xl">
       {data &&
-      <div className="flex flex-col justify-center min-w-60 min-h-24">
+      <div className="flex flex-col justify-center min-w-60 min-h-24 p-4 relative mt-4">
+        <div onClick={() => setData(null)} className="absolute right-2 top-2">
+          <span className="btn btn-md btn-circle btn-ghost" >✕</span>
+        </div>
         <div className="avatar placeholder">
           <div className="shadow-md text-neutral-content rounded-md w-24">
             {/* <span className="text-3xl">{data.name.charAt(0).toUpperCase()}</span> */}
             <span className="text-3xl">{"H"}</span>
           </div>
         </div>
-        <div className="text-sm"><span>{data.address}</span></div>
+        <div className="text-sm p-3"><span>{data.address}</span></div>
         <div className="p-8">
           <h2 className="block mt-1 text-lg leading-tight font-medium text-black">{"Hospital"}</h2>
           {/* <h2 className="block mt-1 text-lg leading-tight font-medium text-black">{data.name}</h2> */}
